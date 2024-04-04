@@ -1,6 +1,8 @@
 const client = require('./db/db-connection')
-const routes = require('./routes/books.route')
+const routesBooks = require('./routes/books.route')
+const routesBorrows = require('./routes/borrows.route')
 const swaggerUI = require("swagger-ui-express");
+const swaggerFile = require("./middleware/swagger-doc.json");
 const getConfigSwagger = require("./middleware/swagger");
 const express = require('express')
 const server = express()
@@ -9,11 +11,10 @@ server.set('json spaces', 2);
 
 client.connect()
 
-server.use('/doc', swaggerUI.serve)
-server.get('/doc', swaggerUI.setup(getConfigSwagger.swaggerOptions, getConfigSwagger.swaggerSortByHTTPRequest))
+server.use('/doc', swaggerUI.serve, swaggerUI.setup(swaggerFile))
 
-server.use('/books', routes)
-
+server.use('/books', routesBooks)
+server.use('/borrows', routesBorrows)
 
 server.listen(8081, () => {
     console.log('Server is running on http://localhost:8081');

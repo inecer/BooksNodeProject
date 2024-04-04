@@ -25,7 +25,7 @@ const getBookById = async (id) => {
 
 const createBook = async (book) => {
     const query = {
-        text: 'INSERT INTO "borrow_books"."books" (title, author, year, type, num) VALUES ($1, $2, $3, $4, $5) RETURNING *',
+        text: 'INSERT INTO "borrow_books"."books" (title, author, year, type, num) VALUES ($1, $2, $3, $4, $5) ',
         values: [book.title, book.author, book.year, book.type, book.num],
     };
     return await client.query(query);
