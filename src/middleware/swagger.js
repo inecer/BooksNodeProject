@@ -1,4 +1,4 @@
-const swaggerAutogen = require('swagger-autogen');
+const swaggerAutogen = require('swagger-autogen')();
 const dotenv = require("dotenv");
 
 dotenv.config();
@@ -16,4 +16,6 @@ const routes = [
     '../server.js',
 ];
 
-swaggerAutogen(outputFile, routes, doc);
+swaggerAutogen(outputFile, routes, doc).then(() => {
+    require('../server.js');
+});
